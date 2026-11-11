@@ -1,4 +1,4 @@
-﻿# 课序 · Coursely
+# 课序 · Coursely
 
 > **不只是课表。** 课程表 / 每日暖言 / 作业 DDL / 专注番茄钟 / 粘贴导入 / 桌面小组件 —— iOS 质感，一个 App 全搞定。
 
@@ -119,6 +119,18 @@ powershell -ExecutionPolicy Bypass -File tools/build.ps1 -Mode release
 
 > 想跑单测：`./gradlew testDebugUnitTest`。若工程路径含中文，需要先建一个 ASCII 目录联接
 > （Gradle 对非 ASCII 路径的老问题），详见 [android/README.md](android/README.md)。
+
+### 不想装环境？直接下 CI 构建好的 APK
+
+每次 push 到 `main` 都会自动跑 [Android APK 流水线](https://github.com/Techxey/coursely/actions/workflows/android.yml)：
+
+1. 打开 **Actions** → 选最新一次成功的 run → 页面底部 **Artifacts** → 下载 `coursely-apk`
+   （里面是 arm64 和 armv7 两个包）
+2. 打 `v*` tag 时，流水线会把 APK 自动附到对应的 **Release** 上
+
+流水线做的事：把 `web/` 同步进 assets → `assembleRelease`（ABI 拆分 + R8）→ 用 `aapt2` 校验
+包名 / 权限 / ABI → 上传 artifact。
+单元测试（JUnit + Robolectric，49 个用例）放在**独立 job**，不阻塞打包，测试报告也作为 artifact 上传。
 
 ---
 
