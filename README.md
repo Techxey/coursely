@@ -1,4 +1,4 @@
-# 课序 · Coursely
+﻿# 课序 · Coursely
 
 > **不只是课表。** 课程表 / 每日暖言 / 作业 DDL / 专注番茄钟 / 粘贴导入 / 桌面小组件 —— iOS 质感，一个 App 全搞定。
 
@@ -7,6 +7,7 @@
   <img alt="platform" src="https://img.shields.io/badge/Android-8.0%2B-34C759">
   <img alt="pwa" src="https://img.shields.io/badge/PWA-offline-5E5CE6">
   <img alt="network" src="https://img.shields.io/badge/网络权限-无-FF3B30">
+  <img alt="Android APK" src="https://github.com/Techxey/coursely/actions/workflows/android.yml/badge.svg">
 </p>
 
 ![课序](docs/screenshots/cover.png)
