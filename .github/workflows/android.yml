@@ -28,11 +28,25 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: 准备 Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: 安装 platform 34 / build-tools 34
-        run: sdkmanager --install "platforms;android-34" "build-tools;34.0.0" > /dev/null
+      # GitHub 的 ubuntu runner 自带 Android SDK（/usr/local/lib/android/sdk）。
+      # 不用 android-actions/setup-android：它内部会装已下线的 "tools" 包，新版 cmdline-tools 上必失败。
+      - name: 检查并补齐 Android SDK
+        run: |
+          set -e
+          if [ -z "$ANDROID_HOME" ] && [ -z "$ANDROID_SDK_ROOT" ]; then
+            export ANDROID_HOME=/usr/local/lib/android/sdk
+            echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
+          fi
+          SDK_ROOT="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          echo "SDK_ROOT=$SDK_ROOT"
+          ls "$SDK_ROOT" || true
+          SDKMANAGER=$(ls -d "$SDK_ROOT"/cmdline-tools/*/bin/sdkmanager 2>/dev/null | head -n1)
+          echo "sdkmanager: $SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses > /dev/null 2>&1 || true
+          # 已有就跳过，没有才装
+          "$SDKMANAGER" --install "platforms;android-34" "build-tools;34.0.0" 2>&1 | tail -n 3
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
 
       - name: 缓存 Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -49,9 +63,12 @@ jobs:
       - name: 校验产物
         working-directory: android
         run: |
+          set -e
           ls -lh app/build/outputs/apk/release/*.apk
+          AAPT2="$ANDROID_HOME/build-tools/34.0.0/aapt2"
           for f in app/build/outputs/apk/release/*.apk; do
-            echo "== $f"; "$ANDROID_HOME/build-tools/34.0.0/aapt2" dump badging "$f" | head -3
+            echo "== $f"
+            "$AAPT2" dump badging "$f" | grep -E "^package:|^native-code:"
           done
 
       - name: 上传 APK
@@ -82,15 +99,25 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - uses: android-actions/setup-android@v3
-
-      - run: sdkmanager --install "platforms;android-34" "build-tools;34.0.0" > /dev/null
+      - name: 检查并补齐 Android SDK
+        run: |
+          set -e
+          if [ -z "$ANDROID_HOME" ] && [ -z "$ANDROID_SDK_ROOT" ]; then
+            export ANDROID_HOME=/usr/local/lib/android/sdk
+            echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
+          fi
+          SDK_ROOT="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          SDKMANAGER=$(ls -d "$SDK_ROOT"/cmdline-tools/*/bin/sdkmanager 2>/dev/null | head -n1)
+          yes | "$SDKMANAGER" --licenses > /dev/null 2>&1 || true
+          "$SDKMANAGER" --install "platforms;android-34" "build-tools;34.0.0" 2>&1 | tail -n 3
+          echo "ANDROID_SDK_ROOT=$SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_HOME=$SDK_ROOT" >> "$GITHUB_ENV"
 
       - uses: gradle/actions/setup-gradle@v4
 
       - run: pwsh -NoProfile -File android/tools/sync-web.ps1
 
-      - name: 跑单测（Robolectric）
+      - name: 跑单测（JUnit + Robolectric）
         working-directory: android
         run: |
           chmod +x gradlew
