@@ -1,0 +1,90 @@
+/* ══════════════════════════════════════════════════════════════
+   课序 · 粘贴导入
+   ══════════════════════════════════════════════════════════════ */
+
+.pst { padding-bottom: 4px; }
+
+/* 三步说明 */
+.pst-howto { display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px; }
+.pst-step {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12.5px; line-height: 18px; color: var(--label-2);
+}
+.pst-step i {
+  width: 18px; height: 18px; margin-top: 1px;
+  border-radius: 50%; background: var(--fill-3);
+  color: var(--label-2); font-size: 11px; font-style: normal;
+  display: grid; place-items: center; flex: 0 0 auto;
+}
+.pst-step b { color: var(--label); font-weight: 600; }
+
+/* 输入框：等宽字体，方便看清表格结构 */
+.pst-ta {
+  min-height: 148px;
+  font-family: var(--font-mono);
+  font-size: 12.5px; line-height: 1.55;
+  white-space: pre;
+  overflow-x: auto;
+}
+.pst-ta-filled { color: var(--label-2); }
+
+.pst-btnrow { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.pst-footrow { display: flex; gap: 10px; width: 100%; }
+
+/* 校对页 */
+.pst-head { display: flex; align-items: flex-start; gap: 10px; }
+.pst-head-main { flex: 1 1 auto; min-width: 0; }
+.pst-head-title { font-size: 16px; font-weight: 700; letter-spacing: -.2px; }
+.pst-head-sub { font-size: 12px; color: var(--label-2); margin-top: 2px; }
+
+.pst-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.pst-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: var(--bg-input);
+}
+.pst-bar { width: 3px; height: 30px; border-radius: 2px; background: var(--tone); flex: 0 0 auto; }
+.pst-row-main { flex: 1 1 auto; min-width: 0; }
+.pst-name {
+  width: 100%; border: 0; padding: 0; margin: 0;
+  background: transparent; outline: none;
+  font-size: 15px; font-weight: 600; letter-spacing: -.2px;
+  color: var(--label);
+}
+.pst-name:focus { color: var(--blue); }
+.pst-row-sub {
+  display: flex; gap: 5px; flex-wrap: wrap;
+  font-size: 11.5px; color: var(--label-2); margin-top: 2px;
+}
+.pst-dot { opacity: .45; }
+.pst-del {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center; flex: 0 0 auto;
+  color: var(--label-3);
+  transition: color .15s, background .15s;
+}
+.pst-del:active { background: var(--fill-3); color: var(--red); }
+
+/* 失败态 */
+.pst-fail {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 22px 18px 16px; text-align: center;
+}
+.pst-fail-icon {
+  width: 46px; height: 46px; border-radius: 14px;
+  display: grid; place-items: center;
+  background: var(--fill-3); color: var(--label-3);
+  margin-bottom: 4px;
+}
+.pst-fail-title { font-size: 15px; font-weight: 600; }
+.pst-fail-desc { font-size: 12.5px; line-height: 18px; color: var(--label-2); max-width: 280px; }
+
+.pst-raw { margin-top: 10px; }
+.pst-raw-head { font-size: 11.5px; color: var(--label-3); margin-bottom: 5px; }
+.pst-raw-pre {
+  margin: 0; padding: 10px 12px; max-height: 150px; overflow: auto;
+  border-radius: 12px; background: var(--bg-input);
+  font-family: var(--font-mono); font-size: 11px; line-height: 1.5;
+  color: var(--label-2); white-space: pre-wrap; word-break: break-all;
+}

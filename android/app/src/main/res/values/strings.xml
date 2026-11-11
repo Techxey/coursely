@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">课序</string>
+    <string name="app_full_name">课序 · 不只是课表</string>
+
+    <!-- 桌面小组件 -->
+    <string name="wg_today">今天</string>
+    <string name="wg_next">下一节课</string>
+    <string name="wg_today_empty">今天没课，好好休息</string>
+    <string name="wg_need_sync">打开课序同步一次课表</string>
+    <string name="wg_desc_today">今日课表：今天的课与教室，一眼看完</string>
+    <string name="wg_desc_next">下节课倒计时：距下一节课还有多久</string>
+    <string name="wg_label">课序 · 今日课表</string>
+    <string name="wg_label_next">课序 · 下节课</string>
+</resources>

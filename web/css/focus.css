@@ -1,0 +1,308 @@
+/* ══════════════════════════════════════════════════════════════
+   课序 · 专注页 —— 番茄钟 / 今日时段 / 自习热力图
+   全部颜色走 tokens 变量，深色模式自动适配
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── 计时卡 ─────────────────────────────────────────────────── */
+.focus-timer {
+  margin: 14px var(--gutter) 0;
+  padding: 6px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  overflow: hidden;              /* 横向滚动的科目行止于卡片圆角内 */
+}
+
+/* ── 科目胶囊（横向滚动，两侧按滚动位置渐隐） ─────────────── */
+.focus-subjects {
+  margin: 0;
+  padding: 2px 28px 2px 0;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.focus-subjects.fade-r {
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 26px), transparent calc(100% - 2px));
+  mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 26px), transparent calc(100% - 2px));
+}
+.focus-subjects.fade-l {
+  -webkit-mask-image: linear-gradient(90deg, transparent 2px, #000 26px);
+  mask-image: linear-gradient(90deg, transparent 2px, #000 26px);
+}
+.focus-subjects.fade-l.fade-r {
+  -webkit-mask-image: linear-gradient(90deg, transparent 2px, #000 26px, #000 calc(100% - 26px), transparent calc(100% - 2px));
+  mask-image: linear-gradient(90deg, transparent 2px, #000 26px, #000 calc(100% - 26px), transparent calc(100% - 2px));
+}
+.focus-sub-chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 11px;
+  border-radius: var(--r-pill);
+  background: var(--fill-3);
+  color: var(--label-2);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -.1px;
+  white-space: nowrap;
+  transition: background .18s var(--ease-ios), color .18s var(--ease-ios), transform .12s var(--ease-out);
+}
+.focus-sub-chip:active { transform: scale(.95); }
+.focus-sub-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--tone, var(--blue));
+}
+.focus-sub-chip.on {
+  background: var(--tone-soft);
+  color: var(--tone-ink);
+  font-weight: 600;
+}
+
+/* ── 圆环 ───────────────────────────────────────────────────── */
+.focus-ring-wrap {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  margin: 2px auto;
+  display: grid;
+  place-items: center;
+}
+.focus-ring-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 46%, var(--tone-soft) 0%, transparent 72%);
+  transition: background .3s var(--ease-ios);
+}
+.focus-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.focus-ring-track {
+  fill: none;
+  stroke: var(--fill-2);
+}
+.focus-ring-prog {
+  fill: none;
+  stroke: var(--tone, var(--blue));
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 105px 105px;
+  transition: stroke-dashoffset .55s var(--ease-ios), opacity .3s var(--ease-ios), stroke .3s var(--ease-ios);
+}
+.focus-ring-center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+}
+.focus-time {
+  font-size: 40px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -1.6px;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: var(--label);
+}
+.focus-status {
+  font-size: 13px;
+  letter-spacing: -.1px;
+  color: var(--label-2);
+}
+
+/* ── 时长分段 ───────────────────────────────────────────────── */
+.focus-dur { margin: 0; }
+.focus-dur .seg-item {
+  min-height: 32px;
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 操作按钮 ───────────────────────────────────────────────── */
+.focus-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.focus-main-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 16.5px;
+  font-weight: 600;
+  letter-spacing: -.2px;
+  color: #fff;
+  background: var(--tone, var(--blue));
+  border-radius: var(--r-btn);
+  transition: transform .12s var(--ease-out), opacity .12s, background .3s var(--ease-ios);
+}
+.focus-main-btn:active { transform: scale(.97); opacity: .88; }
+.focus-btn-ico { display: inline-flex; align-items: center; }
+.focus-btn-ico svg { width: 20px; height: 20px; }
+
+.focus-cta-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 10px;
+}
+.focus-cta-row .btn {
+  min-height: 40px;
+  font-size: 15px;
+}
+.focus-abandon-btn { color: var(--red); }
+.focus-done-btn { color: var(--blue); font-weight: 600; }
+
+/* ── 今日时间轴 ─────────────────────────────────────────────── */
+.focus-list { margin-top: 2px; }
+.focus-sess { min-height: 56px; }
+.focus-sess-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--tone, var(--blue));
+}
+.focus-sess-name {
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.focus-sess-time {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--label-2);
+  font-variant-numeric: tabular-nums;
+}
+.focus-sess-min {
+  flex: 0 0 auto;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--label-2);
+  font-variant-numeric: tabular-nums;
+}
+.focus-empty-row {
+  min-height: 46px;
+  gap: 9px;
+  color: var(--label-2);
+}
+.focus-empty-ico {
+  display: inline-flex;
+  color: var(--label-3);
+  flex: 0 0 auto;
+}
+.focus-empty-text { font-size: 14.5px; letter-spacing: -.1px; }
+
+/* ── 热力图 ─────────────────────────────────────────────────── */
+.focus-heat > .section-head { padding-top: 7px; }
+.focus-heat-card {
+  margin: 0 var(--gutter);
+  padding: 10px 16px 2px;
+}
+.focus-heat-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 20px);   /* 定宽格子，居中排布 */
+  justify-content: center;
+  gap: 3px;
+}
+.focus-heat-cell {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 4.5px;
+  background: var(--fill-3);
+}
+.focus-heat-cell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--blue);
+  opacity: 0;
+  transition: opacity .2s var(--ease-ios);
+}
+.focus-heat-cell[data-lv="1"]::after { opacity: .22; }
+.focus-heat-cell[data-lv="2"]::after { opacity: .38; }
+.focus-heat-cell[data-lv="3"]::after { opacity: .56; }
+.focus-heat-cell[data-lv="4"]::after { opacity: .76; }
+.focus-heat-cell[data-lv="5"]::after { opacity: 1; }
+.focus-heat-cell.is-blank { visibility: hidden; }
+.focus-heat-cell.is-today { box-shadow: 0 0 0 1.5px var(--label-3); }
+
+.focus-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-top: 4px;
+}
+.focus-legend-t {
+  font-size: 11px;
+  color: var(--label-3);
+}
+.focus-legend .focus-heat-cell {
+  width: 11px;
+  height: 11px;
+  aspect-ratio: auto;
+  border-radius: 3px;
+}
+
+/* ── 统计行（紧凑一行三段，紧跟图例） ───────────────────────── */
+.focus-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 7px 0 9px;
+}
+.focus-stat {
+  position: relative;
+  text-align: center;
+}
+.focus-stat + .focus-stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.5px;
+  height: 22px;
+  background: var(--separator);
+}
+.focus-stat .fs-val {
+  font-size: 19px;
+  line-height: 22px;
+  font-weight: 700;
+  letter-spacing: -.4px;
+  font-variant-numeric: tabular-nums;
+  color: var(--label);
+}
+.focus-stat .fs-val i {
+  margin-left: 2px;
+  font-size: 10.5px;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0;
+  color: var(--label-2);
+}
+.focus-stat .fs-label {
+  margin-top: 1px;
+  font-size: 11px;
+  color: var(--label-2);
+}
+
+/* ── 页面收尾 ───────────────────────────────────────────────── */
+.focus-page { padding-bottom: 6px; }

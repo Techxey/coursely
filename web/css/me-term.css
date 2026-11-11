@@ -1,0 +1,67 @@
+/* ══════════════════════════════════════════════════════════════
+   课序 · 学期 / 作息 / 暖言 / 免打扰 设置面板样式
+   ══════════════════════════════════════════════════════════════ */
+
+/* 学期卡上的「开学日期」变成可点入口 */
+.me-sem-date-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 0; margin: 0;
+  background: none; border: 0;
+  color: var(--label-2);
+  font-size: 12.5px; letter-spacing: -.1px;
+  transition: opacity .15s;
+}
+.me-sem-date-btn svg { width: 13px; height: 13px; opacity: .65; }
+.me-sem-date-btn:active { opacity: .55; }
+
+/* 通用面板 */
+.me-term { display: flex; flex-direction: column; gap: 15px; padding-bottom: 4px; }
+.me-term-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.me-term-preview {
+  display: flex; align-items: flex-start; gap: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--fill-3);
+  font-size: 12.5px; line-height: 18px;
+  color: var(--label-2);
+}
+.me-term-preview svg { width: 14px; height: 14px; flex: 0 0 auto; margin-top: 2px; opacity: .7; }
+.me-term-preview b { color: var(--label); font-weight: 600; }
+.me-term-warn { color: var(--orange); }
+
+/* 输入框：去掉 spinner / 统一高度 */
+.me-term input[type="number"]::-webkit-outer-spin-button,
+.me-term input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none; margin: 0;
+}
+.me-term input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+.me-term input[type="date"],
+.me-term input[type="number"] { min-height: 44px; }
+
+/* ── 作息时间编辑 ─────────────────────────────────────────── */
+.me-period { display: flex; flex-direction: column; gap: 14px; padding-bottom: 2px; }
+.me-period-scroll {
+  max-height: 44vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  display: flex; flex-direction: column; gap: 8px; padding: 2px;
+}
+.me-period-row {
+  display: grid;
+  grid-template-columns: 22px 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+}
+.me-period-idx {
+  text-align: right;
+  font-size: 12px; color: var(--label-3); font-variant-numeric: tabular-nums;
+}
+.me-period-time {
+  min-width: 0; min-height: 40px;
+  padding: 8px 10px; font-size: 15px; text-align: center;
+}
+.me-period-dash { flex: 0 0 auto; color: var(--label-3); font-size: 13px; }
+
+/* 免打扰：左右两个时间 */
+.me-term-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* 面板里的 list 去掉外边距 */
+.me-quote-switch { margin: 0; }

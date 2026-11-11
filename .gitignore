@@ -1,0 +1,30 @@
+# ---- Android ----
+android/.gradle/
+android/build/
+android/app/build/
+
+# 本机 SDK 路径，别提交
+android/local.properties
+
+# 由 tools/sync-web.ps1 从 web/ 生成
+android/app/src/main/assets/www/
+
+# 打包产物
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# ---- 开发产物 ----
+# 本地截图/调试产物（docs/screenshots 里的才算数）
+web/.shots/
+node_modules/
+*.log
+
+# ---- IDE / OS ----
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+desktop.ini

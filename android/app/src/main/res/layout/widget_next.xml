@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wn_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/wg_card"
+    android:padding="14dp">
+
+    <TextView
+        android:id="@+id/wn_eyebrow"
+        style="@style/WnEyebrow"
+        android:text="@string/wg_next" />
+
+    <Chronometer
+        android:id="@+id/wn_clock"
+        style="@style/WnClock"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/wn_when"
+        style="@style/WnClock"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/wn_name"
+        style="@style/WnName" />
+
+    <TextView
+        android:id="@+id/wn_meta"
+        style="@style/WnMeta" />
+</LinearLayout>

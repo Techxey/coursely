@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>课序 · 桌面小组件设计示意</title>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: radial-gradient(120% 100% at 20% 0%, #1c2534 0%, #0a0b0e 56%, #050506 100%);
+    font-family: -apple-system, "SF Pro Display", "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: #fff; box-sizing: border-box;
+    display: flex; flex-direction: column; justify-content: center; gap: 30px;
+    padding: 40px 58px;
+  }
+  .head { display: flex; align-items: center; gap: 18px; }
+  .logo { width: 54px; height: 54px; border-radius: 14px; box-shadow: 0 12px 30px -10px rgba(10,107,255,.7); }
+  .t { font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 1; }
+  .s { font-size: 14.5px; color: rgba(255,255,255,.55); margin-top: 8px; }
+  .warn {
+    margin-left: auto; font-size: 12.5px; color: #FFD60A; white-space: nowrap;
+    border: 1px solid rgba(255,214,10,.35); background: rgba(255,214,10,.08);
+    padding: 8px 14px; border-radius: 999px;
+  }
+  .row { display: flex; gap: 28px; align-items: flex-start; }
+  figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  figcaption { font-size: 12.5px; color: rgba(255,255,255,.55); letter-spacing: .3px; }
+
+  .wall {
+    display: flex; gap: 24px; align-items: flex-start;
+    padding: 24px; border-radius: 28px;
+    background: linear-gradient(150deg, #24304a 0%, #131a26 60%, #0d1117 100%);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 24px 50px -24px rgba(0,0,0,.9);
+  }
+
+  .wg {
+    background: #FFFFFF; color: #000; border-radius: 22px; padding: 14px;
+    box-sizing: border-box; display: flex; flex-direction: column;
+    box-shadow: 0 10px 24px -12px rgba(0,0,0,.6);
+  }
+  .wg.dark { background: #1C1C1E; color: #fff; }
+
+  .today { width: 322px; height: 158px; }
+  .today .hd { display: flex; align-items: center; justify-content: space-between; }
+  .today .hd b { font-size: 13px; font-weight: 700; letter-spacing: -.3px; }
+  .today .hd span { font-size: 12px; color: #8A8A8E; }
+  .today .body { margin-top: 6px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+
+  .r { display: flex; align-items: center; gap: 8px; }
+  .r .time { width: 42px; text-align: right; font-size: 11px; color: #8A8A8E; font-variant-numeric: tabular-nums; }
+  .r .bar { width: 3px; height: 21px; border-radius: 2px; }
+  .r .txt { flex: 1; min-width: 0; }
+  .r .name { font-size: 13.5px; font-weight: 700; letter-spacing: -.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .r .room { font-size: 10.5px; color: #8A8A8E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .r.now .room { color: #FF3B30; font-weight: 600; }
+  .r.done .name { color: #8A8A8E; }
+  .foot { font-size: 10px; color: #8A8A8E; margin-top: 2px; }
+
+  .dark .r .time, .dark .today .hd span, .dark .r .room, .dark .foot { color: #98989E; }
+  .dark .r.now .room { color: #FF453A; }
+  .dark .r.done .name { color: #98989E; }
+
+  .next { width: 152px; height: 158px; }
+  .next .eyebrow { font-size: 11px; font-weight: 700; color: #007AFF; }
+  .next .clock { font-size: 32px; font-weight: 700; letter-spacing: -1px; margin-top: 1px; font-variant-numeric: tabular-nums; }
+  .next .name { font-size: 13.5px; font-weight: 700; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .next .meta { font-size: 10.5px; color: #8A8A8E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dark .next .eyebrow { color: #0A84FF; }
+  .dark .next .meta { color: #98989E; }
+</style>
+</head>
+<body>
+  <div class="head">
+    <img class="logo" src="../assets/icon.svg" alt="">
+    <div>
+      <div class="t">桌面小组件</div>
+      <div class="s">今日课表 4×2 · 下节课倒计时 2×2 · 深浅色自动跟随</div>
+    </div>
+    <div class="warn">⚠️ 设计示意（按 RemoteViews 布局 1:1 复刻），非真机截图</div>
+  </div>
+
+  <div class="row">
+    <figure>
+      <div class="wall">
+        <div class="wg today">
+          <div class="hd"><b>今天 · 11月9日</b><span>5 节课</span></div>
+          <div class="body">
+            <div class="r done">
+              <div class="time">08:00</div><div class="bar" style="background:#007AFF"></div>
+              <div class="txt"><div class="name">数据结构与算法</div><div class="room">教三-201 · 已结束</div></div>
+            </div>
+            <div class="r now">
+              <div class="time">10:00</div><div class="bar" style="background:#30B0C7"></div>
+              <div class="txt"><div class="name">大学英语（四）</div><div class="room">外语楼-305 · 进行中</div></div>
+            </div>
+            <div class="r">
+              <div class="time">14:00</div><div class="bar" style="background:#5856D6"></div>
+              <div class="txt"><div class="name">概率论与数理统计</div><div class="room">教二-108</div></div>
+            </div>
+            <div class="foot">+2 节课</div>
+          </div>
+        </div>
+
+        <div class="wg next">
+          <div class="eyebrow">还有 12 分钟</div>
+          <div class="clock">11:48</div>
+          <div class="name">概率论与数理统计</div>
+          <div class="meta">教二-108 · 14:00–15:40</div>
+        </div>
+      </div>
+      <figcaption>浅色 · 「进行中」红字、「已结束」置灰，超 3 节折成「+N 节课」</figcaption>
+    </figure>
+
+    <figure>
+      <div class="wall">
+        <div class="wg today dark">
+          <div class="hd"><b>今天 · 11月9日</b><span>5 节课</span></div>
+          <div class="body">
+            <div class="r done">
+              <div class="time">08:00</div><div class="bar" style="background:#0A84FF"></div>
+              <div class="txt"><div class="name">数据结构与算法</div><div class="room">教三-201 · 已结束</div></div>
+            </div>
+            <div class="r now">
+              <div class="time">10:00</div><div class="bar" style="background:#40C8E0"></div>
+              <div class="txt"><div class="name">大学英语（四）</div><div class="room">外语楼-305 · 进行中</div></div>
+            </div>
+            <div class="r">
+              <div class="time">14:00</div><div class="bar" style="background:#5E5CE6"></div>
+              <div class="txt"><div class="name">概率论与数理统计</div><div class="room">教二-108</div></div>
+            </div>
+            <div class="foot">+2 节课</div>
+          </div>
+        </div>
+
+        <div class="wg next dark">
+          <div class="eyebrow">明天 08:00</div>
+          <div class="clock">08:00</div>
+          <div class="name">高等数学（上）</div>
+          <div class="meta">教四-201 · 08:00–09:40</div>
+        </div>
+      </div>
+      <figcaption>深色 · 超过 2 小时给静态时间，不给「23:41:07」这种假精度</figcaption>
+    </figure>
+  </div>
+</body>
+</html>

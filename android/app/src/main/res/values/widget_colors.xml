@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 小组件配色：浅色 -->
+    <color name="wg_card">#FFFFFFFF</color>
+    <color name="wg_label">#FF000000</color>
+    <color name="wg_label2">#8A8A8E</color>
+    <color name="wg_label3">#C7C7CC</color>
+    <color name="wg_accent">#FF007AFF</color>
+    <color name="wg_now">#FFFF3B30</color>
+
+    <color name="wg_tone1">#FFFF9500</color>
+    <color name="wg_tone2">#FF007AFF</color>
+    <color name="wg_tone3">#FF34C759</color>
+    <color name="wg_tone4">#FF5856D6</color>
+    <color name="wg_tone5">#FF30B0C7</color>
+    <color name="wg_tone6">#FFAF52DE</color>
+    <color name="wg_tone7">#FFFF2D55</color>
+    <color name="wg_tone8">#FFA2845E</color>
+</resources>

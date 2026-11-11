@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 开屏：浅色（取自站点设计变量） -->
+    <color name="splash_bg">#FFF2F2F7</color>
+    <color name="splash_card">#FFFFFFFF</color>
+    <color name="splash_text">#FF000000</color>
+    <color name="splash_text2">#99000000</color>
+    <color name="splash_text3">#4D000000</color>
+    <color name="splash_fill">#33787880</color>
+    <color name="splash_hairline">#1F3C3C43</color>
+    <color name="splash_blue">#FF0A84FF</color>
+    <color name="splash_grad_start">#FF0A84FF</color>
+    <color name="splash_grad_center">#FF5E5CE6</color>
+    <color name="splash_grad_end">#FFBF5AF2</color>
+</resources>

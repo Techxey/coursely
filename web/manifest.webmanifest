@@ -1,0 +1,19 @@
+{
+  "name": "课序 · 不只是课表",
+  "short_name": "课序",
+  "description": "课程表 / 下一节课倒计时 / 作业 DDL / 专注番茄钟，一个 App 全搞定。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2F2F7",
+  "theme_color": "#F2F2F7",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "今日", "url": "./#today" },
+    { "name": "课表", "url": "./#schedule" }
+  ]
+}

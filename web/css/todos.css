@@ -1,0 +1,285 @@
+/* ══════════════════════════════════════════════════════════════
+   课序 · 待办页  （只允许 .todos- 前缀）
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── 概览三宫格 ─────────────────────────────────────────────── */
+.todos-overview {
+  display: flex;
+  align-items: stretch;
+  margin: 14px var(--gutter) 0;
+  padding: 15px 6px 13px;
+}
+
+.todos-stat {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.todos-stat + .todos-stat::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 5px; bottom: 5px;
+  width: 0.5px;
+  background: var(--separator);
+}
+
+.todos-stat-num {
+  font-size: 27px;
+  line-height: 32px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  font-variant-numeric: tabular-nums;
+  color: var(--label);
+}
+.todos-stat-num.is-orange { color: var(--orange); }
+.todos-stat-num.is-green { color: var(--green); }
+.todos-stat-num.is-zero { color: var(--label-3); }
+
+.todos-stat-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  color: var(--label-2);
+  white-space: nowrap;
+}
+
+/* ── 分段控件 ───────────────────────────────────────────────── */
+.todos-seg { margin-top: 15px; }
+
+/* ── 分组 ───────────────────────────────────────────────────── */
+.todos-body > .section-head:first-child { padding-top: 15px; }
+
+.todos-group-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.todos-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  flex: 0 0 auto;
+}
+.todos-count {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--label-3);
+  font-variant-numeric: tabular-nums;
+}
+.todos-head-right {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.todos-clear { color: var(--red); }
+
+/* ── 待办行 ─────────────────────────────────────────────────── */
+.todos-row {
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 56px;
+  padding: 12px 14px;
+  cursor: pointer;
+}
+.todos-row:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+  border-radius: 2px;
+}
+
+/* 圆形复选框（视觉 22px，热区 44px） */
+.todos-check {
+  position: relative;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  margin: -3px 0 0 -3px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  -webkit-tap-highlight-color: transparent;
+}
+.todos-check::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+}
+.todos-check:active .todos-check-box { transform: scale(0.88); }
+
+.todos-check-box {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1.8px solid var(--gray3);
+  background: transparent;
+  color: #fff;
+  transition:
+    background .18s var(--ease-ios),
+    border-color .18s var(--ease-ios),
+    transform .18s var(--spring);
+}
+.todos-check-box svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.8;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity .16s var(--ease-ios), transform .22s var(--spring);
+}
+.todos-check.on .todos-check-box {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+.todos-check.on .todos-check-box svg {
+  opacity: 1;
+  transform: none;
+}
+
+/* 行主体 */
+.todos-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 1px;
+}
+.todos-title {
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.2px;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  transition: opacity .2s var(--ease-ios), color .2s var(--ease-ios);
+}
+
+/* 课程 pill */
+.todos-pill {
+  align-self: flex-start;
+  max-width: 100%;
+  height: 20px;
+  padding: 0 8px;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.todos-pill .tone-dot {
+  width: 6px;
+  height: 6px;
+}
+.todos-pill .todos-pill-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.todos-pill.plain {
+  background: var(--fill-3);
+  color: var(--label-2);
+}
+.todos-pill.plain .tone-dot { background: var(--gray); }
+
+/* 右侧 DDL */
+.todos-due {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  margin-left: auto;
+  padding-top: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--label-2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.todos-due.overdue { color: var(--red); font-weight: 600; }
+.todos-due.today { color: var(--orange); font-weight: 600; }
+
+/* 已完成 */
+.todos-row.done .todos-title {
+  opacity: 0.55;
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+}
+.todos-row.done .todos-pill { opacity: 0.6; }
+.todos-row.done .todos-due { color: var(--label-3); font-weight: 400; }
+
+/* ── 空状态 ─────────────────────────────────────────────────── */
+.todos-empty { padding: 40px 24px 26px; }
+
+/* ── 底部留白（给 FAB 让位） ────────────────────────────────── */
+.todos-spacer { height: 64px; }
+
+/* ══════════════════════════════════════════════════════════════
+   新建 / 编辑 sheet
+   ══════════════════════════════════════════════════════════════ */
+.todos-form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  padding-top: 4px;
+}
+
+.todos-chips {
+  padding: 2px 0;
+}
+.todos-chip {
+  flex: 0 0 auto;
+  height: 32px;
+  padding: 0 12px;
+  font-size: 13px;
+  gap: 5px;
+}
+.todos-chip .tone-dot {
+  width: 7px;
+  height: 7px;
+}
+.todos-chip.on .tone-dot { background: rgba(255, 255, 255, 0.9); }
+
+.todos-hint {
+  font-size: 12.5px;
+  line-height: 17px;
+  color: var(--label-2);
+  padding-left: 2px;
+  min-height: 17px;
+}
+
+.todos-datetime {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+.todos-datetime::-webkit-calendar-picker-indicator {
+  opacity: .45;
+  cursor: pointer;
+}
+
+.todos-quick {
+  display: flex;
+  gap: 8px;
+}
+.todos-quick-chip {
+  height: 28px;
+  font-size: 12.5px;
+}
+
+.todos-footer {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.todos-footer .btn { flex: 1 1 0; }
+.todos-footer .btn-del {
+  flex: 0 0 auto;
+  padding: 0 15px;
+}

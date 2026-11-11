@@ -1,0 +1,224 @@
+/* ══════════════════════════════════════════════════════════════
+   课序 · 今日页
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── 下一节课 hero 卡 ─────────────────────────────────────── */
+.today-hero {
+  position: relative;
+  margin: 14px var(--gutter) 0;
+  padding: 15px 16px 14px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(142deg, var(--tone-soft) 0%, var(--bg-card) 66%);
+  box-shadow: var(--shadow-card);
+  transition: transform .16s var(--ease-out);
+}
+.today-hero:active { transform: scale(0.988); }
+.today-hero::before {
+  content: ""; position: absolute; left: 0; top: 14px; bottom: 14px;
+  width: 3.5px; border-radius: 2px; background: var(--tone);
+}
+.today-hero .h-top { display: flex; align-items: flex-start; gap: 10px; }
+.today-hero .h-main { flex: 1 1 auto; min-width: 0; }
+.today-hero .h-eyebrow {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; letter-spacing: .2px;
+  color: var(--tone-ink); opacity: .92;
+}
+.today-hero .h-live {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--tone);
+  animation: pulse 1.8s var(--ease-ios) infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.8); } }
+.today-hero .h-name {
+  font-size: 21px; line-height: 27px; font-weight: 700; letter-spacing: -.35px;
+  margin-top: 3px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.today-hero .h-meta {
+  margin-top: 6px;
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px;
+  font-size: 12.5px; color: var(--label-2);
+}
+.today-hero .h-meta .hm-i { display: inline-flex; align-items: center; gap: 4px; }
+.today-hero .h-meta svg { width: 13px; height: 13px; opacity: .7; }
+.today-hero .h-count { text-align: right; flex: 0 0 auto; padding-top: 2px; }
+.today-hero .h-count b {
+  display: block; font-size: 24px; line-height: 26px; font-weight: 700;
+  letter-spacing: -.6px; color: var(--tone-ink);
+  font-variant-numeric: tabular-nums;
+}
+.today-hero .h-count span {
+  display: block; font-size: 11px; color: var(--label-2); margin-top: 3px;
+}
+.today-hero .h-arrow {
+  position: absolute; right: 14px; bottom: 12px;
+  color: var(--tone); opacity: .85;
+}
+.today-hero .h-arrow svg { width: 17px; height: 17px; }
+.today-hero.rest { background: linear-gradient(142deg, var(--fill-3) 0%, var(--bg-card) 70%); }
+.today-hero.rest::before { display: none; }
+
+/* ── 今日时间轴 ───────────────────────────────────────────── */
+.tl { margin: 0 var(--gutter); display: flex; flex-direction: column; gap: 8px; }
+.tl-item { display: grid; grid-template-columns: 46px 1fr; gap: 10px; align-items: stretch; }
+.tl-time {
+  text-align: right; padding-top: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.tl-time b { display: block; font-size: 13px; font-weight: 600; color: var(--label); letter-spacing: -.2px; }
+.tl-time span { display: block; font-size: 10.5px; color: var(--label-3); margin-top: 1px; }
+.tl-card {
+  position: relative;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px 10px 13px;
+  min-height: 58px;
+  background: var(--bg-card);
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  transition: transform .14s var(--ease-out), opacity .2s;
+  overflow: hidden;
+}
+.tl-card::before {
+  content: ""; position: absolute; left: 0; top: 10px; bottom: 10px;
+  width: 3px; border-radius: 2px; background: var(--tone);
+}
+.tl-card:active { transform: scale(.985); }
+.tl-card .tc-body { flex: 1 1 auto; min-width: 0; }
+.tl-card .tc-name {
+  font-size: 15px; font-weight: 600; letter-spacing: -.2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tl-card .tc-sub {
+  margin-top: 3px; font-size: 12px; color: var(--label-2);
+  display: flex; align-items: center; gap: 4px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tl-card .tc-sub svg { width: 12px; height: 12px; flex: 0 0 auto; opacity: .65; }
+.tl-card .tc-badge {
+  flex: 0 0 auto; font-size: 10.5px; font-weight: 700;
+  padding: 3px 7px; border-radius: 6px;
+  background: var(--tone-soft); color: var(--tone-ink);
+}
+.tl-card.past { opacity: .46; }
+.tl-card.past .tc-badge { background: var(--fill-3); color: var(--label-2); }
+.tl-card.now {
+  box-shadow: 0 0 0 1.5px var(--tone), 0 8px 22px -14px var(--tone);
+}
+.tl-card.now .tc-badge { background: var(--tone); color: #fff; }
+.tl-empty {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 15px; border-radius: 14px;
+  background: var(--bg-card); box-shadow: var(--shadow-card);
+  font-size: 13.5px; color: var(--label-2);
+}
+.tl-empty svg { width: 18px; height: 18px; color: var(--label-3); flex: 0 0 auto; }
+
+/* ── 待办摘要 ─────────────────────────────────────────────── */
+.today-todo .list-row { min-height: 52px; }
+.today-todo .tt-check {
+  width: 21px; height: 21px; border-radius: 50%; flex: 0 0 auto;
+  border: 1.6px solid var(--label-3); transition: all .16s var(--ease-ios);
+}
+.today-todo .tt-main { flex: 1 1 auto; min-width: 0; }
+.today-todo .tt-title { font-size: 14.5px; letter-spacing: -.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.today-todo .tt-course { font-size: 11.5px; color: var(--label-3); margin-top: 2px; }
+.today-todo .tt-due { font-size: 12px; font-weight: 600; flex: 0 0 auto; font-variant-numeric: tabular-nums; }
+.today-todo .tt-due.warn { color: var(--orange); }
+.today-todo .tt-due.bad { color: var(--red); }
+
+/* ── 快捷入口 ─────────────────────────────────────────────── */
+.today-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 var(--gutter); }
+.today-action {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 13px 14px; border-radius: 16px;
+  background: var(--bg-card); box-shadow: var(--shadow-card);
+  text-align: left;
+  transition: transform .14s var(--ease-out);
+}
+.today-action:active { transform: scale(.975); }
+.today-action .ta-icon {
+  width: 32px; height: 32px; border-radius: 10px;
+  display: grid; place-items: center;
+  background: var(--tone-soft); color: var(--tone-ink);
+}
+.today-action .ta-icon svg { width: 18px; height: 18px; }
+.today-action .ta-title { font-size: 14px; font-weight: 600; letter-spacing: -.2px; }
+.today-action .ta-sub { font-size: 11.5px; color: var(--label-3); margin-top: -4px; }
+
+/* ── 每日暖言 ─────────────────────────────────────────────── */
+.today-quote {
+  position: relative;
+  margin: 14px var(--gutter) 0;
+  padding: 13px 16px 12px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--tone-soft) 0%, var(--bg-card) 74%);
+  box-shadow: var(--shadow-card);
+  transition: transform .15s var(--ease-out);
+}
+.today-quote:active { transform: scale(.988); }
+/* 右上角装饰引号 */
+.today-quote::after {
+  content: "\201D";
+  position: absolute; right: 13px; top: -4px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 54px; line-height: 1;
+  color: var(--tone); opacity: .14;
+  pointer-events: none;
+}
+.today-quote .dq-head { display: flex; align-items: center; gap: 8px; }
+.today-quote .dq-eyebrow {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: .3px;
+  color: var(--tone-ink); opacity: .92;
+}
+.today-quote .dq-eyebrow svg { width: 13px; height: 13px; }
+.today-quote .dq-date {
+  margin-left: auto; font-size: 11px; color: var(--label-3);
+  font-variant-numeric: tabular-nums;
+}
+.today-quote .dq-refresh {
+  width: 24px; height: 24px; margin-right: -4px;
+  display: grid; place-items: center; border-radius: 50%;
+  color: var(--label-3);
+  transition: transform .3s var(--ease-ios), color .16s;
+}
+.today-quote .dq-refresh svg { width: 14px; height: 14px; }
+.today-quote:active .dq-refresh { transform: rotate(-90deg); color: var(--tone); }
+.today-quote .dq-text {
+  margin: 6px 0 0;
+  font-size: 15px; line-height: 1.62; letter-spacing: -.1px;
+  color: var(--label);
+  animation: dqIn .32s var(--ease-ios) both;
+}
+@keyframes dqIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: none; }
+}
+.today-quote .dq-author {
+  margin-top: 5px; text-align: right;
+  font-size: 11.5px; color: var(--label-2);
+}
+.today-quote .dq-author::before { content: "—— "; opacity: .55; }
+
+/* ── 周进度条 ─────────────────────────────────────────────── */
+.today-week {
+  margin: 18px var(--gutter) 0;
+  padding: 13px 15px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-card);
+  display: flex; align-items: center; gap: 12px;
+}
+.today-week .tw-label { font-size: 12px; color: var(--label-2); }
+.today-week .tw-value { font-size: 13px; font-weight: 600; }
+.today-week .tw-bar {
+  flex: 1 1 auto; height: 6px; border-radius: 3px;
+  background: var(--fill-3); overflow: hidden;
+}
+.today-week .tw-bar i {
+  display: block; height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--teal));
+  transition: width .6s var(--ease-ios);
+}
