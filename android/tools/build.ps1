@@ -36,12 +36,16 @@ Set-Location $projectRoot
 & powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot "sync-web.ps1")
 
 # 2) 编译
-$tasks = switch ($Mode) {
-    "debug" { @("assembleDebug") }
-    "release" { @("assembleRelease") }
-    default { @("assembleDebug", "assembleRelease") }
+# 注意：直接把数组传给外部命令（不要用 @ 展开），否则 PowerShell 会把任务名按字符拆开
+$taskList = if ($Mode -eq "both") {
+    @("assembleDebug", "assembleRelease")
+} elseif ($Mode -eq "debug") {
+    @("assembleDebug")
+} else {
+    @("assembleRelease")
 }
-& $gradle @tasks --console=plain
+Write-Host "tasks: $($taskList -join ', ')"
+& $gradle $taskList --console=plain
 
 # 3) 汇总产物
 Write-Host ""
